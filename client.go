@@ -10,6 +10,7 @@ import (
 
 type Options struct {
 	Transport string            //protocol name string,websocket polling...
+	Path      string           
 	Query     map[string]string //url的附加的参数
 	Header    map[string][]string
 }
@@ -32,11 +33,12 @@ func NewClient(uri string, opts *Options) (client *Client, err error) {
 	if err != nil {
 		return
 	}
-	url.Path = path.Join("/socket.io", url.Path)
-	url.Path = url.EscapedPath()
-	if strings.HasSuffix(url.Path, "socket.io") {
-		url.Path += "/"
+	if opts.Path != "" {
+		url.Path = opts.Path
+	} else {
+		url.Path = path.Join("/socket.io", url.Path)
 	}
+	url.Path = url.EscapedPath() + "/"
 	q := url.Query()
 	for k, v := range opts.Query {
 		q.Set(k, v)
