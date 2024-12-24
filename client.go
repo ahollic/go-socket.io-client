@@ -4,13 +4,12 @@ import (
 	"net/url"
 	"path"
 	"reflect"
-	"strings"
 	"sync"
 )
 
 type Options struct {
-	Transport string            //protocol name string,websocket polling...
-	Path      string           
+	Transport string //protocol name string,websocket polling...
+	Path      string
 	Query     map[string]string //url的附加的参数
 	Header    map[string][]string
 }
